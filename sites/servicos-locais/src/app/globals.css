@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+/* Identidade Casa em Dia: azul de confiança, amarelo "ferramenta" e muito branco. */
+@theme {
+  --color-ink: #0f2740;
+  --color-brand: #1d4ed8;
+  --color-brand-dark: #1e3a8a;
+  --color-brand-soft: #e8efff;
+  --color-sun: #ffc233;
+  --color-paper: #f4f7fb;
+  --color-line: #dbe2ec;
+  --color-muted: #536175;
+  --color-ok: #15803d;
+  --color-danger: #b42318;
+}
+
+@theme inline {
+  --font-sans: var(--font-casa), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+body {
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

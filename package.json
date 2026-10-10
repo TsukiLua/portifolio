@@ -1,0 +1,31 @@
+{
+  "name": "portfolio-demos",
+  "private": true,
+  "description": "Quatro sites de demonstração para portfólio comercial (Next.js + TypeScript + Tailwind).",
+  "workspaces": [
+    "packages/*",
+    "sites/*"
+  ],
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev:barbearia": "npm run dev -w sites/barbearia",
+    "dev:servicos": "npm run dev -w sites/servicos-locais",
+    "dev:catalogo": "npm run dev -w sites/catalogo-loja",
+    "dev:estudio": "npm run dev -w sites/estudio-beleza",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "npm run build --workspaces --if-present",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0",
+    "@types/node": "^20.19.0",
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.11"
+  }
+}
