@@ -29,7 +29,8 @@ export function ScheduleStep({ ready, days, date, onDateChange, slots, time, onT
 
   return (
     <div className="space-y-10">
-      <fieldset>
+      {/* min-w-0: fieldsets têm largura mínima = conteúdo e ignorariam o overflow-x da faixa de datas. */}
+      <fieldset className="min-w-0">
         <legend className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-ember">Data</legend>
         <div className="-mx-5 overflow-x-auto px-5 pb-3 sm:mx-0 sm:px-0">
           <div className="flex gap-2">

@@ -1,9 +1,10 @@
-# Portfólio de demonstrações — 5 sites
+# Portfólio de demonstrações — 5 sites + portfólio
 
-Cinco sites de demonstração para apresentar a comércios e prestadores de serviço. Cada um tem marca, identidade visual e funcionalidades próprias do segmento. Todos rodam sem backend: os fluxos funcionam de ponta a ponta no navegador e **declaram explicitamente** que são demonstrativos.
+Um [portfólio profissional](sites/portfolio/README.md) (porta 3000) e cinco sites de demonstração para apresentar a comércios e prestadores de serviço. Cada um tem marca, identidade visual e funcionalidades próprias do segmento. Todos rodam sem backend: os fluxos funcionam de ponta a ponta no navegador e **declaram explicitamente** que são demonstrativos.
 
 | Site | Segmento | Destaque comercial | Porta |
 |---|---|---|---|
+| [Portfólio](sites/portfolio/README.md) | Vitrine do freelancer | Apresenta serviços e os 5 projetos com capturas reais; orçamento por WhatsApp/e-mail | 3000 |
 | [Brasa Barbearia](sites/barbearia/README.md) | Barbearia premium | Agendamento em 5 etapas (serviço, barbeiro, dia/horário, dados, revisão) | 3001 |
 | [Casa em Dia](sites/servicos-locais/README.md) | Manutenção residencial | Landing de conversão com formulário de orçamento validado | 3002 |
 | [Maré](sites/catalogo-loja/README.md) | Loja de roupas | Catálogo com busca, filtros, variantes e pedido pelo WhatsApp | 3003 |
@@ -32,8 +33,9 @@ Requisitos: **Node.js 20.9+** e npm 10+.
 │   ├── servicos-locais/    Casa em Dia
 │   ├── catalogo-loja/      Maré
 │   ├── estudio-beleza/     Sálvia Estúdio de Beleza
-│   └── catalogo-veiculos/  Prime Motors
-├── e2e/                    Testes Playwright (fluxos + qualidade nos 5 sites)
+│   ├── catalogo-veiculos/  Prime Motors
+│   └── portfolio/          Portfólio do freelancer (vitrine dos projetos acima)
+├── e2e/                    Testes Playwright (fluxos + qualidade nos 6 sites)
 ├── docs/
 │   ├── PLANO.md            Plano de execução e decisões de arquitetura
 │   └── MELHORIAS.md        Melhorias futuras (obrigatórias x opcionais)
@@ -49,8 +51,9 @@ Apenas **lógica** é compartilhada (`@demo/core`). A UI é própria de cada sit
 ## Como rodar
 
 ```bash
-npm install                 # instala tudo (raiz + 5 sites)
+npm install                 # instala tudo (raiz + 6 sites)
 
+npm run dev:portfolio       # http://localhost:3000
 npm run dev:barbearia       # http://localhost:3001
 npm run dev:servicos        # http://localhost:3002
 npm run dev:catalogo        # http://localhost:3003
@@ -64,11 +67,11 @@ Produção local de um site: `npm run build -w sites/barbearia && npm run start 
 
 | Comando | O que faz |
 |---|---|
-| `npm run typecheck` | Gera tipos de rotas e roda `tsc --noEmit` nos 5 sites e no core |
-| `npm run lint` | ESLint nos 5 sites |
+| `npm run typecheck` | Gera tipos de rotas e roda `tsc --noEmit` nos 6 sites e no core |
+| `npm run lint` | ESLint nos 6 sites |
 | `npm test` | Vitest: regras de agenda, catálogos, filtros de veículos, formulários, mensagens de WhatsApp, integridade dos dados |
-| `npm run build` | Build de produção dos 5 sites |
-| `npm run test:e2e` | Playwright contra os builds (sobe os 5 servidores automaticamente) |
+| `npm run build` | Build de produção dos 6 sites |
+| `npm run test:e2e` | Playwright contra os builds (sobe os 6 servidores automaticamente) |
 | `npm run check` | typecheck + lint + test + build |
 
 Na primeira execução do E2E: `npx playwright install chromium`.

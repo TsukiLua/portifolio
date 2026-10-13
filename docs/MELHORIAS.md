@@ -16,6 +16,7 @@
 | 10 | Revisar política de trocas com o cliente | Maré | Prazos e valores atuais são exemplos |
 | 11 | Fotos e dados reais dos veículos; revisão jurídica da política de privacidade | Prime Motors | Fotos atuais são do Wikimedia Commons, não do estoque |
 | 12 | Envio real de leads/visitas com CRM, anti-spam e consentimento | Prime Motors | Hoje o formulário só prepara a mensagem de WhatsApp |
+| 13 | Preencher perfil (nome, e-mail, WhatsApp, foto opcional), publicar as demos e configurar `NEXT_PUBLIC_DEMO_URL_*` | Portfólio | O aviso em `npm run dev` lista o que falta |
 
 ## Opcionais (agregam valor comercial)
 
@@ -30,4 +31,5 @@
 - **Testes de acessibilidade automatizados** com `@axe-core/playwright`.
 - **Pacote de UI compartilhado** apenas para primitivas sem estilo (Dialog, Field) se o portfólio crescer.
 - **Prime Motors:** comparador de até 3 veículos, simulador de parcelas (com aviso de valores estimados), filtro por faixa livre de preço e paginação acima de ~100 veículos.
+- **Portfólio:** estudos de caso de clientes reais (com autorização), versão em inglês e página `/projetos` com filtros quando houver muitos projetos.
 - **Indicar no calendário** os dias sem nenhum horário livre (hoje o visitante vê o estado vazio ao clicar).

@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Identidade: base neutra quente, tinta quase preta e um índigo como único destaque. */
+@theme {
+  --color-canvas: #f4f3ef;
+  --color-paper: #fbfaf7;
+  --color-ink: #0f0f12;
+  --color-graphite: #33333a;
+  --color-mute: #5f5f67;
+  --color-line: #dcdad2;
+  --color-accent: #4636e3;
+  --color-accent-dark: #3326c4;
+  --color-accent-soft: #eceaff;
+  --color-ok: #1b6b46;
+  --color-error: #b3261e;
+}
+
+@theme inline {
+  --font-sans: var(--font-pf-sans), system-ui, sans-serif;
+  --font-serif: var(--font-pf-serif), Georgia, serif;
+  --font-mono: var(--font-pf-mono), ui-monospace, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Grade sutil de fundo no hero: referência a "blueprint", sem competir com o conteúdo. */
+.blueprint {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-ink) 6%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 70% 40%, black 30%, transparent 75%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

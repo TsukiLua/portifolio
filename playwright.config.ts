@@ -10,6 +10,7 @@ export const SITES = {
   catalogo: "http://localhost:3003",
   estudio: "http://localhost:3004",
   veiculos: "http://localhost:3005",
+  portfolio: "http://localhost:3000",
 } as const;
 
 const server = (workspace: string, url: string) => ({
@@ -33,5 +34,6 @@ export default defineConfig({
     server("catalogo-loja", SITES.catalogo),
     server("estudio-beleza", SITES.estudio),
     server("catalogo-veiculos", SITES.veiculos),
+    server("portfolio", SITES.portfolio),
   ],
 });

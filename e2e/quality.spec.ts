@@ -6,11 +6,12 @@ import { expect, test, type Page } from "@playwright/test";
 import { SITES } from "../playwright.config";
 
 const PAGES: Record<keyof typeof SITES, string[]> = {
-  barbearia: ["/", "/agendar"],
+  barbearia: ["/", "/agendar", "/agendar?servico=corte-barba&barbeiro=diego"],
   servicos: ["/"],
   catalogo: ["/", "/catalogo", "/produto/vestido-midi-laise-branco", "/sobre", "/trocas-e-entregas"],
-  estudio: ["/", "/agendar"],
+  estudio: ["/", "/agendar", "/agendar?tratamento=design-sobrancelhas&profissional=joana"],
   veiculos: ["/", "/estoque", "/veiculos/toyota-corolla-xei-2022", "/sobre", "/contato", "/privacidade"],
+  portfolio: ["/", "/projetos/catalogo-automotivo", "/projetos/site-para-negocio-local"],
 };
 
 const WIDTHS = [
@@ -57,7 +58,8 @@ for (const [site, base] of Object.entries(SITES) as [keyof typeof SITES, string]
           const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
           expect(overflow, "rolagem horizontal").toBeLessThanOrEqual(0);
 
-          await expect(page.getByText(/demonstração/i).first()).toBeVisible();
+          // Sites fictícios exibem aviso de demonstração; o portfólio marca cada projeto como demonstrativo.
+          await expect(page.getByText(site === "portfolio" ? /demonstrativo/i : /demonstração/i).first()).toBeVisible();
           await expect(page.locator("h1")).toHaveCount(1);
           expect(errors, "erros no console").toEqual([]);
         });

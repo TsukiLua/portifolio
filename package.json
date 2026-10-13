@@ -1,7 +1,7 @@
 {
   "name": "portfolio-demos",
   "private": true,
-  "description": "Quatro sites de demonstração para portfólio comercial (Next.js + TypeScript + Tailwind).",
+  "description": "Portfólio de freelancer e cinco sites de demonstração (Next.js + TypeScript + Tailwind).",
   "workspaces": [
     "packages/*",
     "sites/*"
@@ -10,6 +10,7 @@
     "node": ">=20.9.0"
   },
   "scripts": {
+    "dev:portfolio": "npm run dev -w sites/portfolio",
     "dev:barbearia": "npm run dev -w sites/barbearia",
     "dev:servicos": "npm run dev -w sites/servicos-locais",
     "dev:catalogo": "npm run dev -w sites/catalogo-loja",

@@ -191,7 +191,8 @@ export function BookingFlow() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[1fr_22rem] lg:gap-14">
-      <div>
+      {/* min-w-0: sem isso, a faixa de datas (rolável) alarga a coluna e a página inteira. */}
+      <div className="min-w-0">
         <nav aria-label="Etapas do agendamento" className="mb-10">
           <ol className="grid grid-cols-5 gap-1.5">
             {STEPS.map((s, index) => {
