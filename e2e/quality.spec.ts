@@ -10,6 +10,7 @@ const PAGES: Record<keyof typeof SITES, string[]> = {
   servicos: ["/"],
   catalogo: ["/", "/catalogo", "/produto/vestido-midi-laise-branco", "/sobre", "/trocas-e-entregas"],
   estudio: ["/", "/agendar"],
+  veiculos: ["/", "/estoque", "/veiculos/toyota-corolla-xei-2022", "/sobre", "/contato", "/privacidade"],
 };
 
 const WIDTHS = [

@@ -1,6 +1,6 @@
-# Portfólio de demonstrações — 4 sites
+# Portfólio de demonstrações — 5 sites
 
-Quatro sites de demonstração para apresentar a comércios e prestadores de serviço. Cada um tem marca, identidade visual e funcionalidades próprias do segmento. Todos rodam sem backend: os fluxos funcionam de ponta a ponta no navegador e **declaram explicitamente** que são demonstrativos.
+Cinco sites de demonstração para apresentar a comércios e prestadores de serviço. Cada um tem marca, identidade visual e funcionalidades próprias do segmento. Todos rodam sem backend: os fluxos funcionam de ponta a ponta no navegador e **declaram explicitamente** que são demonstrativos.
 
 | Site | Segmento | Destaque comercial | Porta |
 |---|---|---|---|
@@ -8,13 +8,14 @@ Quatro sites de demonstração para apresentar a comércios e prestadores de ser
 | [Casa em Dia](sites/servicos-locais/README.md) | Manutenção residencial | Landing de conversão com formulário de orçamento validado | 3002 |
 | [Maré](sites/catalogo-loja/README.md) | Loja de roupas | Catálogo com busca, filtros, variantes e pedido pelo WhatsApp | 3003 |
 | [Sálvia Estúdio](sites/estudio-beleza/README.md) | Estúdio de beleza | Solicitação de horário com vários tratamentos e regras de agenda | 3004 |
+| [Prime Motors](sites/catalogo-veiculos/README.md) | Loja de veículos | Estoque com busca e 13 filtros na URL, galeria, agendamento de visita e WhatsApp por veículo | 3005 |
 
-> Marcas, pessoas, endereços, telefones, preços, avaliações e depoimentos são **fictícios**. As fotos vêm do Unsplash (créditos em `sites/*/src/assets/CREDITOS.md`).
+> Marcas, pessoas, endereços, telefones, preços, avaliações e depoimentos são **fictícios**. Fotos: Unsplash nos quatro primeiros sites e Wikimedia Commons (CC BY/CC BY-SA) na Prime Motors — créditos em `sites/*/src/assets/**/CREDITOS.md`.
 
 ## Tecnologias
 
 - Next.js 16 (App Router, geração estática) · React 19 · TypeScript 5.9 estrito
-- Tailwind CSS 4 · Lucide React · `next/font` · `next/image`
+- Tailwind CSS 4 · Lucide React · `next/font` · `next/image` · Zod 4 (Prime Motors)
 - ESLint 9 (`eslint-config-next`) · Vitest 4 (regras de negócio) · Playwright (E2E)
 - npm workspaces (uma instalação para os quatro sites)
 
@@ -30,8 +31,9 @@ Requisitos: **Node.js 20.9+** e npm 10+.
 │   ├── barbearia/          Brasa Barbearia
 │   ├── servicos-locais/    Casa em Dia
 │   ├── catalogo-loja/      Maré
-│   └── estudio-beleza/     Sálvia Estúdio de Beleza
-├── e2e/                    Testes Playwright (fluxos + qualidade nos 4 sites)
+│   ├── estudio-beleza/     Sálvia Estúdio de Beleza
+│   └── catalogo-veiculos/  Prime Motors
+├── e2e/                    Testes Playwright (fluxos + qualidade nos 5 sites)
 ├── docs/
 │   ├── PLANO.md            Plano de execução e decisões de arquitetura
 │   └── MELHORIAS.md        Melhorias futuras (obrigatórias x opcionais)
@@ -47,12 +49,13 @@ Apenas **lógica** é compartilhada (`@demo/core`). A UI é própria de cada sit
 ## Como rodar
 
 ```bash
-npm install                 # instala tudo (raiz + 4 sites)
+npm install                 # instala tudo (raiz + 5 sites)
 
 npm run dev:barbearia       # http://localhost:3001
 npm run dev:servicos        # http://localhost:3002
 npm run dev:catalogo        # http://localhost:3003
 npm run dev:estudio         # http://localhost:3004
+npm run dev:veiculos        # http://localhost:3005
 ```
 
 Produção local de um site: `npm run build -w sites/barbearia && npm run start -w sites/barbearia`.
@@ -61,11 +64,11 @@ Produção local de um site: `npm run build -w sites/barbearia && npm run start 
 
 | Comando | O que faz |
 |---|---|
-| `npm run typecheck` | Gera tipos de rotas e roda `tsc --noEmit` nos 4 sites e no core |
-| `npm run lint` | ESLint nos 4 sites |
-| `npm test` | Vitest: regras de agenda, catálogo, formulários, mensagens de WhatsApp |
-| `npm run build` | Build de produção dos 4 sites |
-| `npm run test:e2e` | Playwright contra os builds (sobe os 4 servidores automaticamente) |
+| `npm run typecheck` | Gera tipos de rotas e roda `tsc --noEmit` nos 5 sites e no core |
+| `npm run lint` | ESLint nos 5 sites |
+| `npm test` | Vitest: regras de agenda, catálogos, filtros de veículos, formulários, mensagens de WhatsApp, integridade dos dados |
+| `npm run build` | Build de produção dos 5 sites |
+| `npm run test:e2e` | Playwright contra os builds (sobe os 5 servidores automaticamente) |
 | `npm run check` | typecheck + lint + test + build |
 
 Na primeira execução do E2E: `npx playwright install chromium`.
@@ -91,6 +94,7 @@ Não há segredos: são valores públicos, embutidos no build.
 | Agendamentos (Brasa, Sálvia) | Agenda ocupada gerada localmente (determinística); nada é reservado | Integrar sistema de agenda (ex.: Google Calendar API, Trinks, AgendaPro ou backend próprio) substituindo `busyFor` em `src/lib/booking.ts` |
 | Orçamento (Casa em Dia) | Validação completa; nada é enviado | Endpoint (Route Handler) com envio por e-mail/CRM, anti-spam e registro de consentimento |
 | Pedidos (Maré) | Link de WhatsApp com produto e variante; lista de interesse no `localStorage` | Estoque real (planilha/ERP/headless CMS) e, se fizer sentido, checkout |
+| Leads e visitas (Prime Motors) | Formulários validados com Zod que preparam a mensagem do WhatsApp | Envio para CRM/e-mail, agenda de visitas e estoque integrado ao DMS da loja |
 | WhatsApp | Link `wa.me` com mensagem; envio sempre manual | Configurar `NEXT_PUBLIC_WHATSAPP_NUMBER` |
 | Mapa | Ilustração SVG | Embed do Google Maps/OpenStreetMap com consentimento de cookies |
 | Redes sociais | Apontam para a home do Instagram | Perfis reais |
@@ -105,7 +109,7 @@ Todas as rotas são estáticas (SSG); o único recurso de servidor usado é a ot
 
 **Outras opções:** qualquer host Node (`npm run build && npm run start -w sites/<site>`) ou, para hospedagem 100% estática (Netlify, Cloudflare Pages, S3), adicionar `output: "export"` e `images: { unoptimized: true }` ao `next.config.ts` — perde-se a otimização automática de imagens (as originais já são JPEG comprimidos, 60–300 KB).
 
-**Custos (FinOps):** sem backend, banco ou chamadas pagas, o custo é previsível e tende a zero em planos gratuitos. O ponto de atenção é a cota de otimização de imagens da Vercel (conta imagens de origem distintas; são ~75 no total) e o tráfego. Para demos de longa duração, configure alerta de uso no provedor ou use a exportação estática.
+**Custos (FinOps):** sem backend, banco ou chamadas pagas, o custo é previsível e tende a zero em planos gratuitos. O ponto de atenção é a cota de otimização de imagens da Vercel (conta imagens de origem distintas; são ~120 no total) e o tráfego. Para demos de longa duração, configure alerta de uso no provedor ou use a exportação estática.
 
 ## Problemas conhecidos
 

@@ -14,6 +14,7 @@
     "dev:servicos": "npm run dev -w sites/servicos-locais",
     "dev:catalogo": "npm run dev -w sites/catalogo-loja",
     "dev:estudio": "npm run dev -w sites/estudio-beleza",
+    "dev:veiculos": "npm run dev -w sites/catalogo-veiculos",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",
     "test": "vitest run",

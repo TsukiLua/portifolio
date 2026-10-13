@@ -26,21 +26,23 @@ import { FilterPanel } from "./FilterPanel";
 export function CatalogView() {
   const params = useSearchParams();
   const pathname = usePathname();
-  const query = useMemo(() => parseQuery(params), [params]);
+  const urlKey = params.toString();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  // Rascunho do campo de busca; ressincroniza quando a URL muda por fora (ex.: busca do topo).
-  const [draft, setDraft] = useState(query.q);
-  const [syncedQ, setSyncedQ] = useState(query.q);
-  if (query.q !== syncedQ) {
-    setSyncedQ(query.q);
-    setDraft(query.q);
+  // Estado local espelha a URL: campos respondem na hora (sem "piscar" checkbox e rádios)
+  // e ressincronizam quando a URL muda por fora (ex.: busca do topo, botão voltar).
+  const [query, setQuery] = useState<CatalogQuery>(() => parseQuery(params));
+  const [seenUrlKey, setSeenUrlKey] = useState(urlKey);
+  if (urlKey !== seenUrlKey) {
+    setSeenUrlKey(urlKey);
+    // A URL alcançou o que nós mesmos gravamos? Nada a fazer. Mudou por fora? Reconstrói.
+    if (urlKey !== toSearchParams(query)) setQuery(parseQuery(params));
   }
 
   function update(patch: Partial<CatalogQuery>) {
     const next = { ...query, ...patch };
-    if (patch.q !== undefined) setSyncedQ(next.q);
     const qs = toSearchParams(next);
+    setQuery(next);
     window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
   }
 
@@ -71,23 +73,17 @@ export function CatalogView() {
           <input
             id="busca-catalogo"
             type="search"
-            value={draft}
+            value={query.q}
             maxLength={60}
             placeholder="Buscar por nome, ex.: vestido"
-            onChange={(e) => {
-              setDraft(e.target.value);
-              update({ q: e.target.value });
-            }}
+            onChange={(e) => update({ q: e.target.value })}
             className="h-12 w-full border border-sand bg-paper px-4 pr-11 text-sm placeholder:text-stone focus:border-ink focus:outline-none"
           />
-          {draft && (
+          {query.q && (
             <button
               type="button"
               aria-label="Limpar busca"
-              onClick={() => {
-                setDraft("");
-                update({ q: "" });
-              }}
+              onClick={() => update({ q: "" })}
               className="absolute top-0 right-0 flex h-12 w-11 items-center justify-center text-stone hover:text-ink"
             >
               <X aria-hidden className="h-4 w-4" />
@@ -100,7 +96,7 @@ export function CatalogView() {
         <aside aria-label="Filtros" className="hidden lg:block">
           <FilterPanel idPrefix="lateral" query={query} counts={counts} onChange={update} />
           {filters > 0 && (
-            <button type="button" onClick={() => { setDraft(""); update(DEFAULT_QUERY); }} className={buttonClasses("text", "mt-8 min-h-10")}>
+            <button type="button" onClick={() => update(DEFAULT_QUERY)} className={buttonClasses("text", "mt-8 min-h-10")}>
               Limpar filtros
             </button>
           )}
@@ -145,7 +141,7 @@ export function CatalogView() {
               <p className="mt-2 max-w-sm text-stone">
                 Tente outro termo de busca ou remova algum filtro. Também dá para pedir ajuda no WhatsApp.
               </p>
-              <button type="button" onClick={() => { setDraft(""); update(DEFAULT_QUERY); }} className={buttonClasses("outline", "mt-6")}>
+              <button type="button" onClick={() => update(DEFAULT_QUERY)} className={buttonClasses("outline", "mt-6")}>
                 Limpar filtros
               </button>
             </div>
@@ -179,7 +175,7 @@ export function CatalogView() {
           <FilterPanel idPrefix="gaveta" query={query} counts={counts} onChange={update} />
         </div>
         <div className="sticky bottom-0 grid grid-cols-2 gap-3 border-t border-sand bg-shell px-6 py-4">
-          <button type="button" onClick={() => { setDraft(""); update(DEFAULT_QUERY); }} className={buttonClasses("outline", "px-3")}>
+          <button type="button" onClick={() => update(DEFAULT_QUERY)} className={buttonClasses("outline", "px-3")}>
             Limpar
           </button>
           <button type="button" onClick={() => dialogRef.current?.close()} className={buttonClasses("solid", "px-3")}>

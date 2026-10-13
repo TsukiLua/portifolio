@@ -14,6 +14,8 @@
 | 8 | Política de privacidade e termos (LGPD) | Todos | Obrigatório ao coletar dados pessoais |
 | 9 | Estoque real e preços atualizados | Maré | Planilha, ERP ou CMS |
 | 10 | Revisar política de trocas com o cliente | Maré | Prazos e valores atuais são exemplos |
+| 11 | Fotos e dados reais dos veículos; revisão jurídica da política de privacidade | Prime Motors | Fotos atuais são do Wikimedia Commons, não do estoque |
+| 12 | Envio real de leads/visitas com CRM, anti-spam e consentimento | Prime Motors | Hoje o formulário só prepara a mensagem de WhatsApp |
 
 ## Opcionais (agregam valor comercial)
 
@@ -27,4 +29,5 @@
 - **Imagens AVIF** (`images.formats`) para reduzir ainda mais o peso, se o host suportar o custo de CPU.
 - **Testes de acessibilidade automatizados** com `@axe-core/playwright`.
 - **Pacote de UI compartilhado** apenas para primitivas sem estilo (Dialog, Field) se o portfólio crescer.
+- **Prime Motors:** comparador de até 3 veículos, simulador de parcelas (com aviso de valores estimados), filtro por faixa livre de preço e paginação acima de ~100 veículos.
 - **Indicar no calendário** os dias sem nenhum horário livre (hoje o visitante vê o estado vazio ao clicar).

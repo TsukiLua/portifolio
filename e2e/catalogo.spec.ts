@@ -89,3 +89,12 @@ test("lista de interesse demonstrativa persiste e gera mensagem única", async (
   await dialog.getByRole("button", { name: "Remover Bolsa Transversal Couro Caramelo da lista" }).click();
   await expect(page.getByRole("button", { name: /Lista de interesse, 1 item$/ })).toBeAttached();
 });
+
+test("checkbox de esgotados responde na hora (regressão)", async ({ page }) => {
+  await page.goto(BASE + "/catalogo");
+  const checkbox = page.getByRole("complementary", { name: "Filtros" }).getByLabel("Ocultar peças esgotadas");
+  await checkbox.check();
+  await expect(checkbox).toBeChecked();
+  await expect(page.getByText("19 peças encontradas")).toBeVisible();
+  await expect(page).toHaveURL(/disponiveis=1/);
+});
