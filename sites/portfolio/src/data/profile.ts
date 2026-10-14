@@ -37,13 +37,13 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  name: "Seu Nome",
-  brand: "Seu Nome",
-  monogram: "SN",
+  name: "Luiz Souza",
+  brand: "Luiz Souza",
+  monogram: "LS",
   role: "Desenvolvedor web freelancer",
   description:
     "Desenvolvimento de sites institucionais, landing pages e catálogos digitais para pequenas e médias empresas.",
-  email: "contato@seudominio.example",
+  email: "luiz.souz404@gmail.com",
   location: undefined,
   photo: undefined,
   social: [],
